@@ -9,6 +9,7 @@ import java.util.HashSet;
 import javassist.bytecode.*;
 import javassist.bytecode.annotation.*;
 import javassist.expr.*;
+import test4.JIRA209API;
 
 public class JvstTest4 extends JvstTestRoot {
     public JvstTest4(String name) {
@@ -955,5 +956,12 @@ public class JvstTest4 extends JvstTestRoot {
         cc.addMethod(CtMethod.make(source, cc));
         cc.writeFile();
         make(cc.getName());
+    }
+
+    public void testJIRA209() throws Exception {
+        CtClass cc = sloader.get("test4.JIRA209");
+        CtField cm = cc.getDeclaredField("foo");
+        JIRA209API.JIRA209Anno anno = (JIRA209API.JIRA209Anno) cm.getAnnotation(JIRA209API.JIRA209Anno.class);
+        assertNotNull(anno.bar());
     }
 }

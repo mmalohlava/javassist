@@ -794,6 +794,32 @@ public class SignatureAttribute extends AttributeInfo {
          * This nested class is a member of that declaring class.
          */
         public ClassType getDeclaringClass() { return parent; }
+
+        /**
+         * Returns the string representation.
+         */
+        public String toString() {
+            StringBuffer sbuf = new StringBuffer();
+            ClassType parent = getDeclaringClass();
+            if (parent != null)
+                sbuf.append(parent.toString()).append('$');
+
+            sbuf.append(name);
+            if (arguments != null) {
+                sbuf.append('<');
+                int n = arguments.length;
+                for (int i = 0; i < n; i++) {
+                    if (i > 0)
+                        sbuf.append(", ");
+
+                    sbuf.append(arguments[i].toString());
+                }
+
+                sbuf.append('>');
+            }
+
+            return sbuf.toString();
+        }
     }
 
     /**
